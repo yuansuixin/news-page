@@ -1,2 +1,3 @@
 *.min.css
 assets
+.DS_Store
