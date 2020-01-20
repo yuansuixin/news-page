@@ -1,0 +1,146 @@
+@import './reset.scss';
+
+$baseFontSize:17px;
+$redColor:#d43d3d;
+$blueColor:#2a90b7;
+$assetsDir: 'assets/';
+
+
+@mixin sectionStyle  {
+    margin-left: 15px;
+    margin-right: 15px;
+    border-bottom: 1px solid rgba(211,211,211,0.6);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+@mixin hotLabel($color) {
+    font-size: 14px;
+    color: $color;
+    border: 1px solid $color;
+}
+
+@mixin commonImg {
+    border: none;
+    width: 100%;
+    display: block;
+}
+@mixin line2 {
+    overflow: hidden;
+    text-overflow: ellipsis; //如果字体超过就以省略号的形式显示
+    display: -webkit-box;
+    display: box;
+    -webkit-box-orient: vertical;  //垂直布局
+    -webkit-line-clamp: 2;  //超过两行截取
+}
+
+//解决ul高度塌陷问题
+@mixin clearfix {
+    &:after{
+        visibility: hidden;
+        display: block;
+        content: ' ';
+        clear: both;
+        height: 0;
+    }
+}
+
+
+.header{
+    height: 45px;
+    background-color: $redColor;
+    .title_logo{
+        width: 100px;
+        height: 100%;
+        margin: 0 auto;
+        background: {
+            position: center;
+            size: contain;
+            repeat:no-repeat;
+            image:url($assetsDir+'wap_logo.png')
+        };
+    }
+}
+
+.top_bar {
+    background-color: #f4f5f6;
+    height: 34px;
+    overflow-x: auto;  //可以滚动
+    overflow-y: hidden;;
+    .top_menu_list{
+        white-space: nowrap;  // 不换行
+        overflow: hidden;
+        height: 100%;
+        display: inline-block;  //依赖于子元素，子元素多高就是多高
+    }
+    .btn{
+        padding: 8px;
+        display: inline-block;
+        font-size: $baseFontSize;
+        &.cur{
+            color: $redColor;
+        }
+    }
+
+}
+ 
+
+.content_list{
+    .section_item{
+        @include sectionStyle;
+        .title{
+            font-size:20px;
+        }
+        .item_info_base{
+            color: #999;
+            font-size: 14px;
+        }
+        .item_info{
+            margin-top: 11px;
+            @extend .item_info_base;
+        }
+        .stick_label{
+            @include hotLabel($redColor);
+        }
+        .src{
+            @extend .item_info_base;
+        }
+    }
+    .images_item{
+        @extend .section_item;
+        .title{
+            @include line2;
+        }
+        .list_image{
+            margin-top: 10px;
+        }
+        .list_img_holder{
+            float: left;
+            width: 33.33%;
+            height: 80px;
+            //一般不给图片同时设置宽高，一般设置了宽度，高度就会自适应
+            img{
+                @include commonImg;
+            }
+        }
+        ul{
+            @include clearfix;
+        }
+    }
+    .image_item{
+        @extend .section_item;
+        .one_image{
+            height: 195px;
+            margin-top: 10px;
+            img{
+                @include commonImg;
+                height: 100%;
+            }
+        }
+        .gg_label{
+            @include hotLabel($blueColor);
+        }
+    }
+}
+
+   
